@@ -69,7 +69,8 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Message");
+
         profile_image= findViewById(R.id.profile_image);
         tvusername=findViewById(R.id.username);
         recyclerView = findViewById(R.id.recycleView);
@@ -118,7 +119,7 @@ public class MessageActivity extends AppCompatActivity {
                 tvusername.setText(user.getFullname());
                 if(user.getProfileImage().equals("Default"))
                 {
-                    profile_image.setImageResource(R.mipmap.ic_launcher);
+                    profile_image.setImageResource(R.drawable.male);
                 }
                 else {
                     Glide.with(getApplicationContext()).load(user.getProfileImage()).into(profile_image);

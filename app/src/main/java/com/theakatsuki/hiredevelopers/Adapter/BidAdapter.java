@@ -1,6 +1,7 @@
 package com.theakatsuki.hiredevelopers.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.theakatsuki.hiredevelopers.Activity.ProfileActivity;
 import com.theakatsuki.hiredevelopers.Model.Bid;
 import com.theakatsuki.hiredevelopers.Model.Chat;
 import com.theakatsuki.hiredevelopers.Model.User;
@@ -29,8 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class BidAdapter extends RecyclerView.Adapter<BidAdapter.ViewHolder> {
 
-    public static  final  int MSG_TYPE_LEFT=0;
-    public static  final  int MSG_TYPE_RIGHT=1;
+
     private Context context;
     private List<Bid> bids;
 
@@ -51,7 +52,7 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        Bid bid  = bids.get(position);
+        final Bid bid  = bids.get(position);
         holder.description.setText(bid.getDescription());
         holder.price.setText("$ "+bid.getPayment()+" in "+bid.getDelivery()+" days");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(bid.getUserId());
@@ -73,6 +74,14 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.ViewHolder> {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra("UID",bid.getUserId());
+                context.startActivity(intent);
             }
         });
 

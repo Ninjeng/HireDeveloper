@@ -66,7 +66,7 @@ public class SingleJobActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_job);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Job details");
         title = findViewById(R.id.show_job_title);
         description = findViewById(R.id.show_job_description);
         price = findViewById(R.id.show_job_price);
@@ -144,21 +144,27 @@ public class SingleJobActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        checkUserAccess(jobId);
         showJobDetails(jobId);
+        checkUserAccess(jobId);
         showBids(jobId);
     }
     public void deleteJob(String jobId)
     {
-        FirebaseDatabase.getInstance().getReference("Jobs").child(jobId).removeValue();
+
         if(category.equals("null"))
         {
-            startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+            intent.putExtra("UID",firebaseUser.getUid());
+            FirebaseDatabase.getInstance().getReference("Jobs").child(jobId).removeValue();
+            startActivity(intent);
+            finish();
         }
         else{
             Intent intent = new Intent(getApplicationContext(), JobsActivity.class);
             intent.putExtra("category",category);
+            FirebaseDatabase.getInstance().getReference("Jobs").child(jobId).removeValue();
             startActivity(intent);
+            finish();
         }
 
     }
@@ -255,15 +261,20 @@ public class SingleJobActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Job job= dataSnapshot.getValue(Job.class);
-                title.setText(job.getTitle());
-                jobTitleText=job.getTitle();
-                description.setText(job.getDescription());
-                String job_price = job.getPrice();
-                price.setText(job_price);
-                jobTitle.setText(job.getTitle());
-                jobDescription.setText(job.getDescription());
-                dateTimePicker.setText(job.getDate());
+                if(dataSnapshot.exists())
+                {
+                    Job job= dataSnapshot.getValue(Job.class);
+                    title.setText(job.getTitle());
+                    jobTitleText=job.getTitle();
+                    description.setText(job.getDescription());
+                    String job_price = job.getPrice();
+                    price.setText(job_price);
+                    jobTitle.setText(job.getTitle());
+                    jobDescription.setText(job.getDescription());
+                    dateTimePicker.setText(job.getDate());
+
+                }
+
             }
 
             @Override

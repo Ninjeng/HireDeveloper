@@ -130,7 +130,6 @@ public class DeveloperFragment extends Fragment {
 
     private void firebaseUserSearch(String searchText) {
 
-        Toast.makeText(getContext(), "Started Search", Toast.LENGTH_LONG).show();
 
         Query firebaseSearchQuery = mUserDatabase.orderByChild("fullname").startAt(searchText).endAt(searchText + "\uf8ff");
 
@@ -152,6 +151,7 @@ public class DeveloperFragment extends Fragment {
         };
 
         mResultList.setAdapter(firebaseRecyclerAdapter);
+        Toast.makeText(getContext(), "Check complete", Toast.LENGTH_LONG).show();
 
     }
 

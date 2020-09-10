@@ -47,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView name, post, followers,following,bio,country,phoneNumber,skills,work;
     ImageView home, job, about;
     RecyclerView recyclerView;
-    String userId;
+    String userId,jbId="";
     List<Events> events;
     List<Job> jobs;
     FirebaseUser firebaseUser;
@@ -60,7 +60,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Profile");
+
         btnEdit= findViewById(R.id.btnEdit);
         circleImageView= findViewById(R.id.proImage);
         name= findViewById(R.id.proName);
@@ -166,6 +167,14 @@ public class ProfileActivity extends AppCompatActivity {
                 about.setBackgroundColor(getResources().getColor(R.color.clickColor));
                 recyclerView.setVisibility(View.GONE);
                 aboutLayout.setVisibility(View.VISIBLE);
+            }
+        });
+        btnHire.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(getApplicationContext(),HireActivity.class);
+                intent1.putExtra("userId",userId);
+                startActivity(intent1);
             }
         });
 

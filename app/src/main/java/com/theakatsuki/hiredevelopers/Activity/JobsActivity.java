@@ -39,7 +39,7 @@ public class JobsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Jobs");
         job = findViewById(R.id.btnShowJobs);
         dev = findViewById(R.id.btnShowDevelopers);
         jobRecyclerView = findViewById(R.id.recyclerViewJobActivity);

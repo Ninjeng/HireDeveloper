@@ -51,9 +51,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final User user = users.get(position);
         holder.username.setText(user.getFullname());
-        if(user.getProfileImage().equals("default"))
+        if(user.getProfileImage().equals("Default"))
         {
-            holder.profile.setImageResource(R.mipmap.ic_launcher);
+            holder.profile.setImageResource(R.drawable.male);
         }
         else {
             Glide.with(context).load(user.getProfileImage()).into(holder.profile);

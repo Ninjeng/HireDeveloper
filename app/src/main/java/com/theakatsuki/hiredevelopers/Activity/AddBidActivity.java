@@ -5,6 +5,7 @@ import androidx.core.app.NavUtils;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +30,7 @@ public class AddBidActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_bid);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Add bid");
 
         tvTitle= findViewById(R.id.tvJobTitle);
         payment= findViewById(R.id.bidPayment);
@@ -46,14 +47,32 @@ public class AddBidActivity extends AppCompatActivity {
         btnAddBid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bid bid = new Bid(jobId,payment.getText().toString(),deliver.getText().toString(),description.getText().toString(),firebaseUser.getUid());
-
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Bids");
-                databaseReference.child(databaseReference.push().getKey()).setValue(bid);
-                Toast.makeText(AddBidActivity.this, "Bid has been placed", Toast.LENGTH_SHORT).show();
-                payment.setText("");
-                deliver.setText("");
-                description.setText("");
+                if (TextUtils.isEmpty(payment.getText().toString()))
+                {
+                    payment.setError("Enter a bid");
+                    payment.requestFocus();
+                }
+                else if(TextUtils.isEmpty(deliver.getText().toString()))
+                {
+                    deliver.setError("Enter a delivery date in days");
+                    deliver.requestFocus();
+                }
+                else if(TextUtils.isEmpty(description.getText().toString()))
+                {
+                    description.setError("Say something about yourself");
+                    description.requestFocus();
+                }
+                else
+                {
+                    Bid bid = new Bid(jobId,payment.getText().toString(),deliver.getText().toString(),description.getText().toString(),firebaseUser.getUid());
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Bids");
+                    databaseReference.child(databaseReference.push().getKey()).setValue(bid);
+                    Toast.makeText(AddBidActivity.this, "Bid has been placed", Toast.LENGTH_SHORT).show();
+                    payment.setText("");
+                    deliver.setText("");
+                    description.setText("");
+                }
+                
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {

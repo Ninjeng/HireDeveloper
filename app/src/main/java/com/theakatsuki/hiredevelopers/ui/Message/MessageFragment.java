@@ -44,7 +44,7 @@ public class MessageFragment extends Fragment {
         recyclerView = view.findViewById(R.id.messageRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        userList = new ArrayList<ChatList>();
+        userList = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("ChatList").child(firebaseUser.getUid()) ;
         reference.addValueEventListener(new ValueEventListener() {

@@ -99,7 +99,7 @@
            android:drawablePadding="8dp"
            android:gravity="center_vertical"
            android:hint="Say something about yourself"
-           android:inputType="number"
+           android:inputType="textMultiLine"
            android:padding="10dp"
            android:singleLine="true"
            android:textColor="@color/black"

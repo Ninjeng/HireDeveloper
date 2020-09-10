@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/input_design"
             android:hint="Say some thing about yourself"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:padding="6dp"
             android:layout_marginTop="6dp"
             android:layout_marginRight="20dp"
