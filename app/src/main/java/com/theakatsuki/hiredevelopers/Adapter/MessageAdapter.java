@@ -74,14 +74,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 holder.profile.setImageResource(R.drawable.male);
             }
             else {
-                Glide.with(context).load(imgUrl).into(holder.profile);
+                Glide.with(context.getApplicationContext()).load(imgUrl).into(holder.profile);
             }
 
          if(chat.getType()=="image")
         {
             holder.mgsImg.setVisibility(View.VISIBLE);
             holder.showMessage.setVisibility(View.GONE);
-            Glide.with(context).load(chat.getMessage()).into(holder.mgsImg);
+            Glide.with(context.getApplicationContext()).load(chat.getMessage()).into(holder.mgsImg);
             if(imgUrl.equals("Default"))
             {
                 holder.profile.setImageResource(R.drawable.male);

@@ -59,7 +59,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     holder.circleImageView.setImageResource(R.drawable.male);
                 }
                 else {
-                    Glide.with(context).load(user.getProfileImage()).into(holder.circleImageView);
+                    Glide.with(context.getApplicationContext()).load(user.getProfileImage()).into(holder.circleImageView);
                 }
             }
 

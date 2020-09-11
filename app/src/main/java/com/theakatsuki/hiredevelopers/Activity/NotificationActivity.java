@@ -54,6 +54,7 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Hire hire =  dataSnapshot.getValue(Hire.class);
+                userId = hire.getUserId();
                 if(hire.getRejection().equals("Yes"))
                 {
                     budget.setVisibility(View.GONE);
@@ -125,18 +126,7 @@ public class NotificationActivity extends AppCompatActivity {
                 hashMap.put("rejection","Accepted");
                 reference.updateChildren(hashMap);
 
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Hire hire = dataSnapshot.getValue(Hire.class);
-                        userId = hire.getUserId();
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
                 final DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Follow").child(firebaseUser.getUid()).child("Following").child(userId);
                 reference1.addValueEventListener(new ValueEventListener() {
                     @Override

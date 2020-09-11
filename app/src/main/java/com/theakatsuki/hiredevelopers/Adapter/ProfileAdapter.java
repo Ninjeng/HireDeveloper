@@ -63,7 +63,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
        }
        else {
            holder.imageView.setVisibility(View.VISIBLE);
-           Glide.with(myContext).load(event.getEventImage()).into(holder.imageView);
+           Glide.with(myContext.getApplicationContext()).load(event.getEventImage()).into(holder.imageView);
 
            holder.userProfileImage.setImageResource(R.mipmap.ic_launcher);
 
@@ -83,7 +83,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
                }
                else
                {
-                   Glide.with(myContext).load(user.getProfileImage()).into(holder.userProfileImage);
+                   Glide.with(myContext.getApplicationContext()).load(user.getProfileImage()).into(holder.userProfileImage);
                }
 
            }

@@ -63,11 +63,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                             +"Click for more details");
                     if(user.getProfileImage().equals("Default"))
                     {
-                        Glide.with(context).load(R.drawable.male).into(holder.profile);
+                        Glide.with(context.getApplicationContext()).load(R.drawable.male).into(holder.profile);
                     }
                     else
                     {
-                        Glide.with(context).load(user.getProfileImage()).into(holder.profile);
+                        Glide.with(context.getApplicationContext()).load(user.getProfileImage()).into(holder.profile);
                     }
                 }
 
@@ -115,11 +115,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                             +"Click to see more");
                     if(user.getProfileImage().equals("Default"))
                     {
-                        Glide.with(context).load(R.drawable.male).into(holder.profile);
+                        Glide.with(context.getApplicationContext()).load(R.drawable.male).into(holder.profile);
                     }
                     else
                     {
-                        Glide.with(context).load(user.getProfileImage()).into(holder.profile);
+                        Glide.with(context.getApplicationContext()).load(user.getProfileImage()).into(holder.profile);
                     }
                 }
 

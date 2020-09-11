@@ -56,7 +56,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             holder.profile.setImageResource(R.drawable.male);
         }
         else {
-            Glide.with(context).load(user.getProfileImage()).into(holder.profile);
+            Glide.with(context.getApplicationContext()).load(user.getProfileImage()).into(holder.profile);
         }
         if(isChat)
         {

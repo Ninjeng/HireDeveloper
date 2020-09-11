@@ -110,11 +110,12 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent=new Intent(SettingActivity.this,SplashActivity.class);
+                Intent intent=new Intent(SettingActivity.this,LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                startActivity(intent);
+               finish();
             }
         });
         

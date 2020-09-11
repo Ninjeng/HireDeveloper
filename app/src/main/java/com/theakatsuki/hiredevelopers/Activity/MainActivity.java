@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),SettingActivity.class);
-                intent.putExtra("UID",firebaseUser.getUid());
                 startActivity(intent);;
             }
         });

@@ -63,11 +63,11 @@ public class BidAdapter extends RecyclerView.Adapter<BidAdapter.ViewHolder> {
                 holder.username.setText(user.getFullname());
                 if(user.getProfileImage().equals("Default"))
                 {
-                    Glide.with(context).load(R.drawable.male).into(holder.profile);
+                    Glide.with(context.getApplicationContext()).load(R.drawable.male).into(holder.profile);
                 }
                 else
                 {
-                    Glide.with(context).load(user.getProfileImage()).into(holder.profile);
+                    Glide.with(context.getApplicationContext()).load(user.getProfileImage()).into(holder.profile);
                 }
             }
 

@@ -1,7 +1,10 @@
 package com.theakatsuki.hiredevelopers.Adapter;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,43 +65,46 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Viewholder> {
        CheckLike(event.getPostId(),holder.like);
        readLikes(event.getPostId(),holder.likeText);
        CountComments(event.getPostId(),holder.commentText);
+        if (isValidContextForGlide(myContext)){
+            if(event.getEventImage().equals("Blank"))
+            {
+                holder.imageView.setVisibility(View.GONE);
+            }
+            else {
+                holder.imageView.setVisibility(View.VISIBLE);
+                Glide.with(myContext).load(event.getEventImage()).into(holder.imageView);
 
-       if(event.getEventImage().equals("Blank"))
-       {
-           holder.imageView.setVisibility(View.GONE);
-       }
-       else {
-           holder.imageView.setVisibility(View.VISIBLE);
-           Glide.with(myContext).load(event.getEventImage()).into(holder.imageView);
+                holder.userProfileImage.setImageResource(R.mipmap.ic_launcher);
 
-           holder.userProfileImage.setImageResource(R.mipmap.ic_launcher);
+            }
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(event.getUserId());
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.getValue(User.class);
+                    holder.country.setText(user.getCountry());
+                    holder.fullName.setText(user.getFullname());
 
-       }
-       DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(event.getUserId());
-       reference.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               User user = dataSnapshot.getValue(User.class);
-               holder.country.setText(user.getCountry());
-               holder.fullName.setText(user.getFullname());
+                    if(user.getProfileImage().equals("Default"))
+                    {
+                        holder.userProfileImage.setImageResource(R.drawable.male);
 
-               if(user.getProfileImage().equals("Default"))
-               {
-                   holder.userProfileImage.setImageResource(R.drawable.male);
+                    }
+                    else
+                    {
+                        Glide.with(myContext.getApplicationContext()).load(user.getProfileImage()).into(holder.userProfileImage);
+                    }
 
-               }
-               else
-               {
-                   Glide.with(myContext).load(user.getProfileImage()).into(holder.userProfileImage);
-               }
+                }
 
-           }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-           @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
 
-           }
-       });
+
        holder.userProfileImage.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
@@ -296,6 +302,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Viewholder> {
 
             }
         });
+    }
+
+
+    public static boolean isValidContextForGlide(final Context context) {
+        if (context == null) {
+            return false;
+        }
+        if (context instanceof Activity) {
+            final Activity activity = (Activity) context;
+            if (activity.isDestroyed() || activity.isFinishing()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
